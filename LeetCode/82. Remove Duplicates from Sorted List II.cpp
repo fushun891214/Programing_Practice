@@ -69,3 +69,34 @@ public:
         return dummy2->next;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* deleteDuplicates(struct ListNode* head) {
+    struct ListNode *dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
+    dummy->val = 101;
+    dummy->next = NULL;
+    struct ListNode *p = dummy;
+    struct ListNode *t = head;
+    while(t != NULL){
+        if((t->next != NULL) && (t->val == t->next->val)){
+            while((t->next != NULL) && (t->val == t->next->val)){
+                t = t->next;
+            }
+            t = t->next;
+            if(t == NULL){
+                p->next = NULL;
+            }
+        }else{
+            p->next = t;
+            p = p->next;
+            t = t->next;
+        }
+    }
+    return dummy->next;
+}
