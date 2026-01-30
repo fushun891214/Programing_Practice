@@ -30,3 +30,34 @@ struct ListNode* deleteDuplicates(struct ListNode* head) {
     }
     return dummy2->next;
 }
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* deleteDuplicates(struct ListNode* head) {
+    struct ListNode *dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
+    dummy->val = 101;
+    dummy->next = head;
+    struct ListNode *slow = dummy;
+    struct ListNode *fast = head;
+    while(fast != NULL){
+        if((fast->next != NULL) && (fast->val == fast->next->val)){
+            while((fast->next != NULL) && (fast->val == fast->next->val)){
+                fast = fast->next;
+            }
+            fast = fast->next;
+            if(fast == NULL){
+                slow->next = NULL;
+            }
+        }else{
+            slow->next = fast;
+            slow = slow->next;
+            fast = fast->next;
+        }
+    }
+    return dummy->next;
+}
